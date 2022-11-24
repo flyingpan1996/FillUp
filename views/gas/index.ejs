@@ -1,0 +1,67 @@
+<%- include('../partials/header') %>
+
+<h5>Richmond Hill</h5>
+
+
+<div class="container">
+  <!-- header -->
+
+
+  <% gas.forEach(function(m) { %>
+  <!-- header -->
+  <div class="contentTwo .flex-column">
+      <!-- row -->
+      <div class="row">
+          <!--  -->
+          <div class="data">
+              <!--  -->
+              <!--  -->
+              <div class="text">
+                <form action="/gas/<%= m._id %>?_method=DELETE" method="POST">
+                    <input type="submit" value="Delete">
+                    </form>
+                  <p class="statue"><%= m.stationName %></p>
+                  <!--  -->
+                  <div class="infoTwo">
+                      <p><%= m.streetNumber %> <%= m.streetName %> <%= m.postalCode %> </p>
+                  </div>
+                  <!--  -->
+              </div>
+              <!--  -->
+          </div>
+          <!--  -->
+          <div class="data">
+              <!--  -->
+              <div class="city">
+                  <p><%= m.gasPrice %></p>
+                  <hr>
+                  <p>per litre</p>
+              </div>
+              <!--  -->
+              <div class="price">
+      
+           
+                  <a href="/gas/<%= m._id %>" class="detailBtn">Details</a>
+
+              </div>
+          </div>
+          <!--  -->
+      </div>
+      <!-- row -->
+      
+    </ul>
+    <% }); %>
+
+
+
+  <div class="new-btn"><a href="/gas/new">New Gas</a></div>
+
+
+
+
+
+
+
+<%- include('../partials/footer') %>
+
+
