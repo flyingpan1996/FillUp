@@ -10,11 +10,6 @@ var indexRouter = require('./routes/index');
 const gasRouter = require('./routes/gas');
 const reviewsRouter = require('./routes/reviews');
 
-mongoose.connect(process.env.DATABASE_URL, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useCreateIndex: true
-});
 
 
 var app = express();
