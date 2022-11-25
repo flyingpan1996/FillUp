@@ -11,4 +11,17 @@
 <body>
     <nav>
       <img src="/images/logo.png">
+      <ul class="right">
+        <li>
+          <% if (user) { %>
+            <a href="/logout"><i class="material-icons left">trending_flat</i>Log Out</a>
+            <% } else { %>
+              <a href="/auth/google"><i class="material-icons left"></i>Login</a>
+              <a href="/gas/new" <%- title === 'Add Gas Station' ? 'class="active"' : '' %>>Add Station</a>
+              <a href="/gas" <%- title === 'Browse' ? 'class="active"' : '' %>>Browse</a>
+              <% } %>
+        </li>
+      
     </nav>
+
+

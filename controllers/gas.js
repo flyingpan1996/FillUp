@@ -1,25 +1,53 @@
 const Gas = require('../models/gas');
 
 
-function index(req, res) {
-  Gas.find({}, function (err, gas) {
-    res.render('gas/index', { title: 'All Gas Stations', gas });
+
+function index(req, res, next) {
+  // Make the query object to use with Student.find based up
+  // the user has submitted the search form or now
+  const modelQuery = req.query.name ? { name: new RegExp(req.query.name, 'i') } : {};
+  // Default to sorting by name
+  Gas.find(modelQuery)
+    .exec(function (err, gas) {
+      if (err) return next(err);
+      // Passing search values, name & sortKey, for use in the EJS
+      res.render('gas/index', {
+        name: req.query.name,
+        user: req.user,
+        gas,
+        title: 'Gas Station',
+      });
+    });
+}
+
+
+
+
+
+
+function show(req, res, next) {
+  Gas.findById(req.params.id, function(err, gas) {
+     res.render('gas/show', {
+      name: req.query.name,
+      user: req.user,
+      gas,
+      title: 'Gas Detail',
+    });
   });
 }
-
-function show(req, res) {
- Gas.findById(req.params.id, function(err, gas) {
-    res.render('gas/show', { title: 'Gas Detail', gas });
+ 
+ function newGas(req, res, next) {
+   res.render('gas/new', {
+    name: req.query.name,
+    user: req.user,
+    title: 'Add Gas Station',
   });
-}
-
-function newGas(req, res) {
-  res.render('gas/new', { title: 'Add Gas Station' });
-}
+};
 
 
 
-function create(req, res) {
+
+function create(req, res, next) {
   const gas = new Gas(req.body);
   gas.save(function(err) {
     // one way to handle errors
@@ -58,6 +86,11 @@ function deleteGas(req, res){
     
   });
 }
+
+
+
+
+
 
 module.exports = {
     index,
