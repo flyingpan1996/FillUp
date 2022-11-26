@@ -1,7 +1,9 @@
 <%- include('../partials/header') %>
 
+<h3>Add a Gas Station</h3>
+
 <form id="new-form" action="/gas" method="POST">
-  <label>Gas Name:</label>
+  <label>Gas Station Name:</label>
   <input type="text" name="stationName">
   <label>city:</label>
   <input type="text" name="city">
@@ -13,7 +15,8 @@
   <input type="text" name="postalCode">
   <label>price:</label>
   <input type="text" name="gasPrice">
-  <input type="submit" value="Add Gas">
+
+  <input type="submit" class="addGas" value="Add Gas Station">
 </form>
 
 

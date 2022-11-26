@@ -1,94 +1,76 @@
 <%- include('../partials/header') %>
 
+
+
 <div class="content">
     <div class="poster">
-      <div class="poster-title">
-        <h1> <%= gas.stationName %> </h1>
-        <div class="line"></div>
-      </div>
+        <div class="poster-title">
+          <h1> <%= gas.stationName %> </h1>
+          <div class="line"></div>
+        </div>
+     </div>
 
-    </div>
+
     <div class="info">
-      <div class="block published">
-        <div class="mini-title">City</div>
+      <div class="block">
+        <div class="blockTitle">City</div>
         <%= gas.city %>
       </div>
-      <div class="block published">
-        <div class="mini-title">Address</div>
+      <div class="block">
+        <div class="blockTitle">Address</div>
         <%= gas.streetNumber %> <%= gas.streetName %>. <%= gas.postalCode %>
       </div>
-      <div class="block published">
-    
-        <div class="mini-title">Price/litre</div>  
-
+      <div class="block">
+        <div class="blockTitle">Price/litre</div>  
         <%= gas.gasPrice %>
-        <button class="open-button" onclick="openForm()">Update</button>
-        
-
+        <button class="openBtn" onclick="openForm()">Update</button>
       </div>
-      <div class="block published">
-        <div class="mini-title">Directions</div>
-        12 min
+      <div class="block">
+        <div class="blockTitle">Type</div>
+        Petrol
       </div>
     </div>
 
 
-    <div class="form-popup" id="myForm">
 
-        <h2>Update</h2>
-        <form action="/gas/<%= gas._id %>" method="POST">
-        <label>Gas Price:
-          <input type="string" name="gasPrice">
-        </label><br>
-        <label>Street Number:
-          <input type="string" name="streetNumber">
-        </label><br>
-        <label>Street Name:
-          <input type="string" name="streetName">
-        </label><br>
-        <label>Postal Code:
-          <input type="string" name="postalCode">
-        </label><br>
-        <label>Station:
-          <input type="string" name="stationName">
-        </label><br>
- 
-
-  
-        <input type="submit" value="Update">
-        <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
-        
+    <div class="form-popup" id="updateForm">
+    <h2>Update Gas Price</h2>
+      <form action="/gas/<%= gas._id %>" method="POST">
+         <label>New Price:
+            <input type="string" name="gasPrice">
+         </label><br>
+        <input type="submit" class="saveBtn" value="Save">
+        <button type="button" class="closeBtn" onclick="closeForm()">Close</button>   
       </form>
     </div>
 
     <script>
       function openForm() {
-        document.getElementById("myForm").style.display = "block";
+        document.getElementById("updateForm").style.display = "block";
       }
       
       function closeForm() {
-        document.getElementById("myForm").style.display = "none";
+        document.getElementById("updateForm").style.display = "none";
       }
       </script>
+
+
+
 
   <h2>Updates</h2>
       <form id="add-review-form" method="POST" action="/gas/<%= gas._id %>/reviews">
         <label>Review:</label> 
         <textarea name="content"></textarea>
-        <label>Rating:</label>
-        <select name="rating">
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
+        <label>Status:</label>
+        <select name="status">
+          <option selected="selected">How busy is it?</option>
+          <option value="Busy">Busy</option>
+          <option value="Not Busy">Not Busy</option>
         </select>
         <input type="submit" class="submitBtn2" value="Add Comment">
       
       </form>
       
-  
-
 
       <% if (gas.reviews.length) { %>
         <table>
@@ -96,13 +78,13 @@
             <tr>
               <th>Date</th>
               <th>Review</th>
-              <th>Rating</th>
+              <th>Status</th>
             </tr>
           </thead>
           <tbody>
             <% let total=0 %>
               <% gas.reviews.forEach(function(r) { %>
-                <% total +=r.rating %>
+
                   <tr>
                     <td>
                       <%= r.createdAt.toLocaleDateString() %> @ <%= r.createdAt.toLocaleTimeString()  %>
@@ -111,16 +93,10 @@
                       <%= r.content %>
                     </td>
                     <td>
-                      <%= r.rating %>
+                      <%= r.status %>
                     </td>
                   </tr>
                   <% }); %>
-                    <tr>
-                      <td colspan="2"></td>
-                      <td><strong>
-                          <%= (total / gas.reviews.length).toFixed(1) %>
-                        </strong></td>
-                    </tr>
           </tbody>
         </table>
         <% } else { %>
