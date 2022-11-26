@@ -25,7 +25,7 @@
 
 
 <h2>Getting Started</h2>
-<a href="gasapplication.herokuapp.com">Fillup Application</a>
+<a href="https://fillup-app.herokuapp.com/">Fillup Application</a>
 <br>
 <a href="https://trello.com/invite/b/d8aQBzt4/ATTI3ba3736c0ac818904788d3499e32303b1973027A/fillup">Trello Board</a>
 
